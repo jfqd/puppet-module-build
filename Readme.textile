@@ -1,0 +1,33 @@
+h1. build module for "Puppet":http://projects.reductivelabs.com
+
+Puppet module for building tools or libraries from source if no distribution package is available.
+
+h2. How do I use it
+
+<pre>
+build::install { 'top':
+  download => 'http://www.unixtop.org/dist/top-3.7.tar.gz',
+  creates  => '/url/local/bin/top',
+}
+</pre>
+
+This function will download the source of the top command, extract it and run a ./configure, make, make install for you.
+
+h2. Optional parameters
+
+| pkg_folder      | Name of the extracted package folder    |
+| pkg_format      | Pkg-Format                              |
+| pkg_extension   | Pkg-Extension                           |
+| extractorcmd    | Overwrite pre defined extract commands  |
+| buildoptions    | Additional build options for configure  |
+| rm_build_folder | Remove the build folder (true, false)   |
+
+h2. Dependencies
+
+"Puppet":http://projects.reductivelabs.com
+
+h2. Note
+
+All paths are debian/nexenta specific. Please customise it to your needs.
+
+Copyright © 2010 qutic development, released under the MIT license
