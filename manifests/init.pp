@@ -15,6 +15,7 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
   
   $cwd    = "/usr/local/src"
   
+  $test   = "/usr/bin/test"
   $unzip  = "/usr/bin/unzip"
   $tar    = "/usr/sbin/tar"
   $bunzip = "/usr/bin/bunzip2"
@@ -45,7 +46,7 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
     cwd     => "$cwd",
     command => "/usr/bin/wget -q $download",
     timeout => 120, # 2 minutes
-    unless  => "test -f $creates",
+    unless  => "$test -f $creates",
   }
   
   exec { "extract-$name":
