@@ -2,7 +2,7 @@
 #
 # build::install { 'top':
 #   download => 'http://www.unixtop.org/dist/top-3.7.tar.gz',
-#   creates  => '/url/local/bin/top',
+#   creates  => '/usr/local/bin/top',
 # }
 
 define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $pkg_extension="", $buildoptions="", $extractorcmd="", $rm_build_folder=true) {

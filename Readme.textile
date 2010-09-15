@@ -7,7 +7,7 @@ h2. Usage
 <pre>
 build::install { 'top':
   download => 'http://www.unixtop.org/dist/top-3.7.tar.gz',
-  creates  => '/url/local/bin/top',
+  creates  => '/usr/local/bin/top',
 }
 </pre>
 
