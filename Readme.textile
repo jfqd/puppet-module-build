@@ -1,8 +1,8 @@
-h1. build module for "Puppet":http://projects.reductivelabs.com
+h1. Puppet build module
 
-Puppet module for building tools or libraries from source if no distribution package is available.
+"Puppet":http://projects.reductivelabs.com module for building tools or libraries from source if no distribution package is available.
 
-h2. How do I use it
+h2. Usage
 
 <pre>
 build::install { 'top':
