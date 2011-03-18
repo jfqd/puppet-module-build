@@ -13,6 +13,10 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
     package { 'build-essential': ensure => installed }
   }
   
+  Exec {
+    unless => "$test -f $creates",
+  }
+  
   $cwd    = "/usr/local/src"
   
   $test   = "/usr/bin/test"
@@ -46,7 +50,6 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
     cwd     => "$cwd",
     command => "/usr/bin/wget -q $download",
     timeout => 120, # 2 minutes
-    unless  => "$test -f $creates",
   }
   
   exec { "extract-$name":
