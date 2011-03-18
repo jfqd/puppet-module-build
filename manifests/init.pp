@@ -7,11 +7,7 @@
 
 define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $pkg_extension="", $buildoptions="", $extractorcmd="", $rm_build_folder=true) {
   
-  if defined( Package['build-essential'] ) {
-    debug("Package build-essential already installed")
-  } else {
-    package { 'build-essential': ensure => installed }
-  }
+  build::requires { "$name-requires-build-essential":  package => 'build-essential' }
   
   Exec {
     unless => "$test -f $creates",
@@ -85,4 +81,12 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
     } # true
   } # case
   
+}
+
+define build::requires ( $ensure='installed', $package ) {
+  if defined( Package[$package] ) {
+    debug("$package already installed")
+  } else {
+    package { $package: ensure => $ensure }
+  }
 }
