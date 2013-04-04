@@ -26,9 +26,10 @@ h2. Optional parameters
 h2. Dependencies
 
 "Puppet":http://projects.reductivelabs.com
+"puppet-common":https://github.com/puppet-modules/puppet-common
 
 h2. Note
 
 All paths are debian/nexenta specific. Please customise it to your needs.
 
-Copyright © 2010 qutic development, released under the MIT license
+Copyright © 2010-2013 qutic development, released under the MIT license
