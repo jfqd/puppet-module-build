@@ -5,7 +5,16 @@
 #   creates  => '/usr/local/bin/top',
 # }
 
-define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $pkg_extension="", $buildoptions="", $extractorcmd="", $makecmd="", $rm_build_folder=true) {
+define build::install (
+  $download,
+  $creates,
+  $pkg_folder='',
+  $pkg_format="tar",
+  $pkg_extension="",
+  $buildoptions="",
+  $extractorcmd="",
+  $make_cmd="",
+  $rm_build_folder=true) {
   
   build::requires { "$name-requires-build-essential":  package => 'build-essential' }
   
@@ -42,9 +51,9 @@ define build::install ($download, $creates, $pkg_folder='', $pkg_format="tar", $
     default => $extractorcmd,
   }
 
-  $make = $makecmd ? {
+  $make = $make_cmd ? {
     '' => '/usr/bin/make && /usr/bin/make install',
-    default => $makecmd,
+    default => $make_cmd,
   }
   
   exec { "download-$name":
