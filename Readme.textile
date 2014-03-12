@@ -1,32 +1,60 @@
 h1. Puppet build module
 
-"Puppet":http://projects.reductivelabs.com module for building tools or libraries from source if no distribution package is available.
+"Puppet":http://puppetlabs.com module for building tools or libraries from source if no distribution package is available.
 
-h2. Usage
+h2. Usage (downloading source from internet)
 
 <pre>
 build::install { 'top':
-  download => 'http://www.unixtop.org/dist/top-3.7.tar.gz',
+  file     => 'http://www.unixtop.org/dist/top-3.7.tar.gz',
   creates  => '/usr/local/bin/top',
 }
 </pre>
 
 This function will download the source of the top command, extract it and run a ./configure, make, make install for you.
 
+h2. Usage (using locally stored or puppet module files as source for building)
+
+<pre>
+build::install { 'top':
+  file     => 'puppet:///modules/your-module/top-3.7.tar.gz',
+  creates  => '/usr/local/bin/top',
+}
+</pre>
+
+File could be stored even in puppet module files.
+
+<pre>
+build::install { 'tomcat-apr':
+  file            => '/opt/apache-tomcat/bin/tomcat-native.tar.gz',
+  creates         => '/usr/local/apr/lib/libtcnative-1.so',
+  buildoptions    => '--with-apr=`which apr-1-config` --with-java-home=\'/usr/lib/jvm/java-7-oracle\' --with-ssl=yes',
+  extract_options => '--transform=\'s,tomcat-native-.*-src,tomcat-native,\'',
+  pkg_folder      => 'tomcat-native/jni/native',
+}
+</pre>
+
+This example will install Tomcat APR native library from source bundled with Tomcat package. 
+p.s. paths are Ubuntu specific
+
+
 h2. Optional parameters
 
 | pkg_folder      | Name of the extracted package folder    |
 | pkg_format      | Pkg-Format                              |
 | pkg_extension   | Pkg-Extension                           |
-| extractorcmd    | Overwrite pre defined extract commands  |
+| extractor_cmd   | Overwrite pre defined extract commands  |
+| extract_options | Additional options to extractor tool    |
 | make_cmd        | Overwrite pre defined make commands     |
-| buildoptions    | Additional build options for configure  |
+| build_options   | Additional build options for configure  |
 | rm_build_folder | Remove the build folder (true, false)   |
+| src_cwd         | Folder where source is extracted and built. Defaults to '/usr/local/src' |
 
 h2. Dependencies
 
-"Puppet":http://projects.reductivelabs.com
+"Puppet":http://puppetlabs.com/puppet/puppet-open-source
 "puppet-common":https://github.com/puppet-modules/puppet-common
+"puppet-stdlib":https://github.com/puppetlabs/puppetlabs-stdlib
 
 h2. Note
 
